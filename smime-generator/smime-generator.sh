@@ -18,7 +18,9 @@ run() {(
   set -euo pipefail
   # #############################################################
   cd "$thisDir"
-  java -jar target/smime-generator.jar "$@"
+  mvn clean package
+  # Read the file smime-generator-request.json and pass its contents as arguments to the Java application.
+  java -jar target/smime-generator.jar "$(cat "smime-generator-request.json")"
 )}
 # ###########################################################################################
 # ###########################################################################################

@@ -1,0 +1,8 @@
+{
+  "toAddress": "person@email.com",
+  "fromAddress": "brian.kavanagh@homeaffairs.gov.au",
+  "subject": "EDIKN_knesg_20260602_144359_749_0_800027",
+  "attachmentName": "knesg_20260602_144359_749_0_800027",
+  "attachmentContentType": "application/EDIFACT",
+  "attachmentContent": "UNA:+.? '\r\nUNB+UNOC:3+BBT001P::BBT001P+AAA336C+030918:1554+800027++++1'\r\nUNH+1+CUSREP:D:99B:UN'\r\nBGM+98:::AIRIAR+XXXX 999 1 800027:1+9'\r\nRFF+ABP:27428372950'\r\nLOC+92+NZAKL::6'\r\nLOC+125+USNYC::6'\r\nDTM+253:20030806:102'\r\nDTM+253:1135:401'\r\nTDT+20+QF004++6+QF::3+++VH-OGT::3'\r\nLOC+60+AUSYD::6'\r\nDTM+132:20030808:102'\r\nDTM+132:1623:401'\r\nNAD+TR+CTOID::95'\r\nSTS++Y:63:95'\r\nFTX+LIN+A'\r\nUNT+15+1'\r\nUNZ+1+800027'"
+}
