@@ -63,8 +63,8 @@ public class SecurityUtils {
                 .replace("-----BEGIN TRUSTED CERTIFICATE-----", "-----BEGIN CERTIFICATE-----")
                 .replace("-----END TRUSTED CERTIFICATE-----", "-----END CERTIFICATE-----");
 
-        CertificateFactory certificateFactory = getCertificateFactory("X.509");    // PEM input (with headers)
-        // US_ASCII is mainly about correctness-by-intent and clarity: Communicates intent: "this input should only contain ASCII"
+        CertificateFactory certificateFactory = getCertificateFactory("X.509");    // PEM inputUri (with headers)
+        // US_ASCII is mainly about correctness-by-intent and clarity: Communicates intent: "this inputUri should only contain ASCII"
         try (InputStream in = new ByteArrayInputStream(certString.getBytes(StandardCharsets.US_ASCII))) {
             return (X509Certificate) certificateFactory.generateCertificate(in);
         } catch (CertificateException | IOException e) {

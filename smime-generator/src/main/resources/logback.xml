@@ -1,13 +1,59 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<configuration debug="false">
-    <statusListener class="ch.qos.logback.core.status.NopStatusListener"/>
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <withJansi>true</withJansi>
-        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>%msg%n</pattern>
+<configuration>
+
+    <!-- Property for defining the log directory path -->
+    <property name="LOG_DIR" value="logs" />
+
+    <!-- 1. Console Appender for real-time console streaming -->
+<!--    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">-->
+<!--        <encoder>-->
+<!--            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>-->
+<!--        </encoder>-->
+<!--    </appender>-->
+
+    <!-- 2. Rolling File Appender configured to roll over immediately on run -->
+    <appender name="FILE_JSON" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- Current active log file -->
+        <file>${LOG_DIR}/smime-generator.log</file>
+
+        <!-- Fixed window strategy handles numeric file index cycling (%i) -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/smime-generator.%i.log</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>5</maxIndex> <!-- Keeps exactly 5 previous historical log files -->
+        </rollingPolicy>
+
+        <!-- Setting size to 0 forces a rollover trigger on the very first log entry -->
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <!-- Creates a new log file strictly once when the application starts up.-->
+            <maxFileSize>0</maxFileSize>
+        </triggeringPolicy>
+
+        <!-- CompositeJsonEncoder: explicit provider order controls JSON field order -->
+        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <decorator class="net.logstash.logback.decorate.PrettyPrintingDecorator" />
+            <providers>
+                <timestamp/>
+                <logLevel/>
+                <threadName>
+                    <fieldName>thread</fieldName>
+                </threadName>
+                <loggerName>
+                    <fieldName>logger</fieldName>
+                </loggerName>
+                <message/>
+                <!-- logLevelValue excluded by simply not listing it -->
+                <stackTrace/>
+                <mdc/>
+                <arguments/>
+                <logstashMarkers/>
+            </providers>
         </encoder>
     </appender>
-    <root level="trace">
-        <appender-ref ref="STDOUT"/>
+
+    <!-- Root Logger Routing Rules -->
+    <root level="DEBUG">
+<!--        <appender-ref ref="CONSOLE" />-->
+        <appender-ref ref="FILE_JSON" />
     </root>
+
 </configuration>

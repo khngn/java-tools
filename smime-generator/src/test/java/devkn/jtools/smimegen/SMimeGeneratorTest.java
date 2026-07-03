@@ -28,6 +28,7 @@ class SMimeGeneratorTest {
         MimeMessageInput input = new MimeMessageInput(
                 "k@mail.com",
                 "mm@mail.com",
+                "mm@mail.com",
                 "Mock subject",
                 "mock-attachement-name",
                 "mock attachment content",

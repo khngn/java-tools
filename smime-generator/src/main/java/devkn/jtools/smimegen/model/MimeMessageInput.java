@@ -16,6 +16,7 @@ import java.nio.file.Path;
 public record MimeMessageInput(
         String toAddress,
         String fromAddress,
+        String replyToAddress,
         String subject,
         String attachmentName,
         String attachmentContent,
@@ -37,6 +38,9 @@ public record MimeMessageInput(
         try {
             mime.addRecipient(Message.RecipientType.TO, new InternetAddress(toAddress));
             mime.addFrom(new InternetAddress[]{new InternetAddress(fromAddress)});
+            if (replyToAddress != null) {
+                mime.setReplyTo(new InternetAddress[]{new InternetAddress(replyToAddress)});
+            }
             mime.setSubject(subject);
 
             MimeBodyPart attachment = new MimeBodyPart();
