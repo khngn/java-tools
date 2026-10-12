@@ -51,6 +51,11 @@ public class SMimeGeneratorCli {
         Session session = Session.getDefaultInstance(new Properties());
         Processor processor = new Processor(sMimeGenerator, session);
 
+        // There are two modes of operation:
+        // 1. If both mimeMessagesDirUri and outputDirUri are provided, process all JSON files in the input directory
+        //    and write S/MIME messages to the output directory.
+        // 2. If either mimeMessagesDirUri or outputDirUri is not provided, read JSON lines from System.in and write
+        //    S/MIME messages to the specified output path in each line
         if (request.mimeMessagesDirUri() != null && request.outputDirUri() != null) {
             Path inputDir = Path.of(URI.create(request.mimeMessagesDirUri()));
             ensureReadableDirectory(inputDir);
@@ -96,7 +101,7 @@ public class SMimeGeneratorCli {
         try {
             System.out.println(objectMapper.writeValueAsString(event));
         } catch (Exception e) {
-            throw new RuntimeException("Failed to write NDJSON outputUri", e);
+            throw new RuntimeException("Failed to write NDJSON event out", e);
         }
     }
 

@@ -36,8 +36,12 @@ public record MimeMessageInput(
         MimeMessage mime = new MimeMessage(session);
 
         try {
-            mime.addRecipient(Message.RecipientType.TO, new InternetAddress(toAddress));
-            mime.addFrom(new InternetAddress[]{new InternetAddress(fromAddress)});
+            if (toAddress != null) {
+                mime.addRecipient(Message.RecipientType.TO, new InternetAddress(toAddress));
+            }
+            if (fromAddress != null) {
+                mime.addFrom(new InternetAddress[]{new InternetAddress(fromAddress)});
+            }
             if (replyToAddress != null) {
                 mime.setReplyTo(new InternetAddress[]{new InternetAddress(replyToAddress)});
             }
